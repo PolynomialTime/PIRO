@@ -1,0 +1,36 @@
+obj: airl
+IS: false
+seed: -1  # 使用-1表示随机种子
+cuda: -1
+
+env:
+  env_name: HalfCheetah-v2
+  T: 1000
+  state_indices: all
+
+# AIRL专用参数
+airl:
+  total_timesteps: 4200000  # AIRL训练总步数，确保500次评估 (500 × 8400)
+  expert_episodes: 1       # 专家轨迹数量，与BC保持一致
+  eval_episodes: 20         # 评估episode数
+  eval_freq: 8400           # 每6千步评估一次，总共500次评估
+  demo_batch_size: 256     # 演示数据批大小，调小以适应1个专家轨迹
+  gen_replay_buffer_capacity: 4096  # 生成器replay buffer容量
+  n_disc_updates_per_round: 8       # 每轮判别器更新次数
+  n_envs: 4                         # 并行环境数
+  reward_hid_sizes: [256, 256]      # 奖励网络隐藏层大小
+
+# PPO学习器参数（与主配置SAC参数对应调整）
+ppo:
+  batch_size: 256           # 对应SAC batch_size
+  learning_rate: 0.0003     # 对应SAC lr
+  gamma: 0.99               # 对应SAC discount
+  clip_range: 0.2           # PPO clip范围
+  ent_coef: 0.01            # 熵系数
+  vf_coef: 0.5              # 值函数系数
+  n_epochs: 10              # PPO训练epochs
+
+# 评估参数
+eval:
+  episodes: 20
+  deterministic: true

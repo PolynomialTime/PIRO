@@ -1,0 +1,33 @@
+D4RL Expert Dataset Rewards Summary
+==================================================
+
+HALFCHEETAH-EXPERT-V2:
+  Average Reward: 10656.43
+  Std Dev: 441.68
+  Episodes: 1000
+
+ANT-EXPERT-V2:
+  Average Reward: 4620.73
+  Std Dev: 1409.06
+  Episodes: 1000
+
+WALKER2D-EXPERT-V2:
+  Average Reward: 4919.36
+  Std Dev: 141.08
+  Episodes: 1001
+
+HOPPER-EXPERT-V2:
+  Average Reward: 3509.62
+  Std Dev: 333.11
+  Episodes: 1028
+
+HUMANOID-EXPERT-V2: 
+  Status: NOT AVAILABLE (D4RL doesn't have humanoid-expert)
+
+==================================================
+Summary:
+- 4 environments available for training
+- All expert datasets show high-quality performance
+- HalfCheetah has highest reward (10656.43)
+- Hopper has lowest reward (3509.62)
+- All datasets have ~1000 episodes each

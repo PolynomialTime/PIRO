@@ -1,0 +1,30 @@
+obj: bc
+IS: false
+seed: -1  # 使用-1表示随机种子
+cuda: -1
+
+env:
+  env_name: Walker2d-v3
+  T: 1000
+  state_indices: all
+
+# BC专用参数（与主配置中的bc段对齐）
+bc:
+  epochs: 50000  # 与主配置一致
+  eval_freq: 100  # 与主配置一致
+  eval_episodes: 20  # 与主配置一致
+  expert_episodes: 1  # 与主配置一致
+  expert_data_path: ../expert_data  # 专家数据基础路径
+
+# BC网络参数（参考主配置的reward网络结构）
+bc_network:
+  hidden_sizes: [64, 64]  # 与主配置walker2d reward网络一致
+  activation: relu  # 与主配置一致
+  lr: 0.0001  # 与主配置reward lr一致
+  weight_decay: 0.001  # 与主配置一致
+  batch_size: 100  # 与主配置SAC batch_size一致
+  
+# 评估参数（与主配置IRL评估保持一致）
+eval:
+  episodes: 20  # 与irl.eval_episodes一致
+  deterministic: true
