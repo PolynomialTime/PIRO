@@ -1,0 +1,27 @@
+absl-py
+chex==0.1.6
+cython<3
+d4rl @ git+https://github.com/Farama-Foundation/d4rl@master#egg=d4rl
+dm-acme[jax] @ git+https://github.com/google-deepmind/acme@d92e23b
+dm-env
+dm-haiku==0.0.9
+dm-launchpad[reverb]
+dm-sonnet
+dm-tree
+envlogger[tfds]
+flax==0.6.4
+gym<0.24.0
+ipython
+matplotlib
+notebook
+numpy
+optax==0.1.4
+orbax<=0.1.7
+patchelf
+rlds
+tabulate
+tensorflow==2.8.0
+tensorflow-datasets==4.6.0
+tensorflow_probability==0.15.0
+tqdm
+wandb
