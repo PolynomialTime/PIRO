@@ -10,6 +10,7 @@ This repository contains the implementation of PIRO (Proximal Inverse Reward Opt
 - PyTorch 1.5+
 - OpenAI Gym
 - [MuJoCo]
+- Gymnasium Robotics
 
 ### Setup
 ```bash
@@ -19,8 +20,8 @@ pip install ruamel.yaml
 
 ## 📁 File Structure
 
-- **PRO implementation**: `train/`
-  - `trainPRO.py` - Main PRO training script
+- **PIRO implementation**: `train/`
+  - `trainPIRO.py` - Main PIRO training script
   - `trainML.py` - One of baselines -- ML-IRL training 
   - `models/` - Reward function models
 - **SAC agent**: `common/`
@@ -47,14 +48,17 @@ python common/train_gd.py configs/samples/experts/{env}.yml
 
 # Collect expert demonstrations  
 python common/collect.py configs/samples/experts/{env}.yml
+
+#Collect minari dataset
+python common/collect_robotic.py
 ```
 where `{env}` is one of: `hopper`, `walker2d`, `halfcheetah`, `ant`......
 
-### Training PRO
+### Training PIRO
 
-Train PRO on MuJoCo environments:
+Train PIRO on MuJoCo and Robotic environments:
 ```bash
-python train/trainPRO.py configs/samples/agents/{env}.yml
+python train/trainPIRO.py configs/samples/agents/{env}.yml
 ```
 
 ## 📊 Results

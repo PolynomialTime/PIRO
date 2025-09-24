@@ -9,6 +9,7 @@ from ruamel.yaml import YAML
 
 from train.models.reward import MLPReward
 from common.sac import ReplayBuffer, SAC
+from common.robotic_wrapper import make_array_env, make_env_fn
 
 import envs
 from utils import system, collect, logger, eval
@@ -124,7 +125,8 @@ if __name__ == "__main__":
     os.makedirs(os.path.join(log_folder, 'model'))
 
     # environment
-    env_fn = lambda: gym.make(env_name)
+    env_fn = make_env_fn(env_name)
+    env_fn = make_array_env(env_fn)
     gym_env = env_fn()
     state_size = gym_env.observation_space.shape[0]
     action_size = gym_env.action_space.shape[0]
@@ -135,10 +137,30 @@ if __name__ == "__main__":
     #expert_trajs = torch.load(f'expert_data/states/{env_name}.pt').numpy()[:, :, state_indices]
     env_name=env_name.split('-')[0]
     expert_trajs = np.load(f'expert_data/{env_name}/states.npy')
+
+    if expert_trajs.dtype == object:
+        traj_list = expert_trajs.tolist()
+        traj_list = traj_list[:num_expert_trajs]
+        try:
+            expert_trajs = np.stack(traj_list, axis=0)
+        except ValueError:
+            min_len = min(t.shape[0] for t in traj_list)
+            expert_trajs = np.stack([t[:min_len] for t in traj_list], axis=0)
+
     expert_trajs = expert_trajs[:num_expert_trajs, :, :] # select first expert_episodes
     expert_samples = expert_trajs.copy().reshape(-1, len(state_indices))
     #expert_a = torch.load(f'expert_data/actions/{env_name}.pt').numpy()[:, :, :]
     expert_a = np.load(f'expert_data/{env_name}/actions.npy')
+
+    if expert_a.dtype == object:
+        traj_list = expert_a.tolist()
+        traj_list = traj_list[:num_expert_trajs]
+        try:
+            expert_a = np.stack(traj_list, axis=0)
+        except ValueError:
+            min_len = min(t.shape[0] for t in traj_list)
+            expert_a = np.stack([t[:min_len] for t in traj_list], axis=0)
+
     expert_a = expert_a[:num_expert_trajs, :, :] # select first expert_episodes
     expert_a_samples = expert_a.copy().reshape(-1, action_size)
     expert_samples_sa=np.concatenate([expert_samples,expert_a_samples],1)

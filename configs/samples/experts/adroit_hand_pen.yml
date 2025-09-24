@@ -1,0 +1,20 @@
+seed: 1
+cuda: -1
+env:
+  env_name: AdroitHandPen-v1
+  T: 200
+  state_indices: all
+sac:
+  epochs: 3000
+  log_step_interval: 5000
+  update_every: 50
+  update_num: 1
+  random_explore_episodes: 10
+  batch_size: 100
+  lr: 3e-5
+  alpha: 0.2
+  automatic_alpha_tuning: false
+  buffer_size: 1000000
+  num_test_episodes: 10
+expert:
+  samples_episode: 64
